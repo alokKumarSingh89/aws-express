@@ -6,6 +6,11 @@ frameworkVersion: '3'
 
 custom:
   tableName: 'users-table-${sls:stage}'
+  dynamodb:
+    start:
+      migrate: true
+    stages:
+      - dev
 
 provider:
   name: aws

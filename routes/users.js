@@ -3,7 +3,14 @@ const express = require('express');
 const router = express.Router();
 
 const USERS_TABLE = process.env.USERS_TABLE;
-const dynamodbClient = new AWS.DynamoDB.DocumentClient();
+
+
+const dynamodbDbClientParams = {};
+if(process.env.IS_OFFLINE){
+    dynamodbDbClientParams.region = 'localhost';
+    dynamodbDbClientParams.endpoint = 'http://localhost:8000'
+}
+const dynamodbClient = new AWS.DynamoDB.DocumentClient(dynamodbDbClientParams);
 
 router.get('/', async function(req, res) {
     console.log("Get User");
